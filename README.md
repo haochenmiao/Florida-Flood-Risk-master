@@ -1,8 +1,19 @@
 # Interactive Social Vulnerability and Flood Risk Visualization for Cape Coral, FL
+## [Map Link](https://florida-flood-risk-master-d9cjkowie-haochenmiaos-projects.vercel.app/)
 
 ## Introduction
 
 The "Interactive Social Vulnerability and Flood Risk Visualization" is a web-based GIS application designed to visualize and analyze social vulnerability indices and flood risk zones in Cape Coral, Florida. It features both 2D and 3D map visualizations with interactive overlays, popups, and tools for enhanced user engagement. This application aims to assist urban planners, policymakers, and community stakeholders in making data-driven decisions.
+
+## Map Screenshots
+
+### 2D Map
+
+![2D Map](img/2D_map.png)
+
+### 3D Map
+
+![3D Map](img/3D_map.png)
 
 ## Features
 
