@@ -1,0 +1,90 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  #container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  #title {
+    position: relative;
+    height: 5%;
+    background-color: rgb(88, 153, 196);
+    font-size: 18px;
+    font-family: Verdana;
+    color:#fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #button button {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  #button {
+    height: 5%;
+    position: absolute;
+    padding-right: 1%;
+    padding-left: 1%;
+    right: 0;
+    font-size: 28px;
+    color: rgb(88, 153, 196);
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #description {
+    height: 15%;
+    display: block;
+    transition: height 0.5s ease;
+    font-family: Verdana;
+    line-height: 1.6;
+    color:rgb(15, 33, 44);
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 3%;
+    padding-left: 3%;
+  }
+  
+  #map {
+    height: 80vh;
+    width: 100%;
+  }
+
+.leaflet-control-scale-line {
+    font-size: 14px;
+  }
+
+.fa-book {
+    font-size: 24px;
+    color:#2a175e;
+    text-shadow: 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff;
+}
+
+.fa-school {
+    font-size: 24px;
+    color:#4a6323;
+    text-shadow: 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff;
+}
+
+.fa-fire {
+    font-size: 24px;
+    color:#85120e;
+    text-shadow: 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff, 0 0 2px #fff;
+}

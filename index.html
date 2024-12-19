@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flooding Cape Coral</title>
+        <meta charset='utf-8' />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+            integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+            crossorigin=""/>
+
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+            crossorigin=""></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      
+        <link rel="stylesheet" href="leaflet.legend/leaflet.legend.css"/>
+        <script src="leaflet.legend/leaflet.legend.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="..." crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="styles.css"/>
+        <script src="Boundary.js"></script>
+        <script src="Floods.js"></script>
+        <script src="Roads.js"></script>
+        <script src="SurfaceWater.js"></script>
+        <script src="SVI.js"></script>
+        <script src="Schools.js"></script>
+        <script src="Fire.js"></script>
+        <script src="Library.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="title">
+                <h1><i class="fa-sharp fa-solid fa-house-flood-water"></i> Flooding Cape Coral</h1>
+            </div>
+            <div id = "button">
+                <button id="toggle-description"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+            <div id="description">
+                <p>This project draws on FEMA <a href="https://msc.fema.gov/portal/search?AddressQuery=yakima">flood hazard data</a> and the US Census <a href = "https://www.atsdr.cdc.gov/placeandhealth/svi/interactive_map.html">Social Vulnerability Index</a> to visualize the overlap between flood risk and social vulnerability in Cape Coral, Florida. Additional features of interest include schools, libraries, and fire stations. These are designated critical infrastructure because, in the event of a flood, they may be vital to response and recovery, or they may be particularly vulnerable, or both. Select any of these facilities to view their name, or select a census tract to view its vulnerability score. Layers can be toggled on and off using either the layer control at the upper right, or by clicking on a legend at the bottom. You can collapse this message by clicking the info button at the top right.</p>
+            </div>
+            <div id='map'></div>
+        </div>
+        <script src="scripts.js"></script>
+    </body>
+</html>
