@@ -1,5 +1,3 @@
-console.log("Library Data: ", library);
-
 var toggleButton = document.getElementById('button');
 var descriptionDiv = document.getElementById('description');
 
@@ -42,7 +40,7 @@ var ySchools = L.geoJSON(schools, {
     return L.marker(latlng, { icon: schoolIcon });
   },
   onEachFeature: function (feature, layer) {
-    layer.bindPopup(feature.properties.SchoolName);
+    layer.bindPopup(feature.properties.Name);
   }
 });
 
@@ -70,7 +68,7 @@ var yLibraries = L.geoJSON(library, {
     return L.marker(latlng, { icon: libraryIcon });
   },
   onEachFeature: function (feature, layer) {
-    layer.bindPopup(feature.properties.Branch);
+    layer.bindPopup(feature.properties.name);
   }
 });
 
@@ -95,7 +93,7 @@ var ySVI_A = L.geoJSON(SVI, {
   },
   onEachFeature: function(feature, layer) {
     var rpl = feature.properties.RPL_THEMES;
-    layer.bindPopup("<b>" + "Social Vulnerability: " + "</b>"  + (rpl*100).toFixed(2) + " percentile" + "<br>" + "Coordinates: " + JSON.stringify(feature.geometry.coordinates));
+    layer.bindPopup("<b>Social Vulnerability: </b>" + (rpl * 100).toFixed(2) + " percentile");
   }
 }); //checked
 
@@ -111,7 +109,7 @@ var ySVI_B = L.geoJSON(SVI, {
   },
   onEachFeature: function(feature, layer) {
     var rpl = feature.properties.RPL_THEMES;
-    layer.bindPopup("<b>" + "Social Vulnerability: " + "</b>"  + (rpl*100).toFixed(2) + " percentile" + "<br>" + "Coordinates: " + JSON.stringify(feature.geometry.coordinates));
+    layer.bindPopup("<b>Social Vulnerability: </b>" + (rpl * 100).toFixed(2) + " percentile");
   }
 }); //checked
 
@@ -127,7 +125,7 @@ var ySVI_C = L.geoJSON(SVI, {
   },
   onEachFeature: function(feature, layer) {
     var rpl = feature.properties.RPL_THEMES;
-    layer.bindPopup("<b>" + "Social Vulnerability: " + "</b>"  + (rpl*100).toFixed(2) + " percentile" + "<br>" + "Coordinates: " + JSON.stringify(feature.geometry.coordinates));
+    layer.bindPopup("<b>Social Vulnerability: </b>" + (rpl * 100).toFixed(2) + " percentile");
   }
 }); //checked
 
@@ -143,7 +141,7 @@ var ySVI_D = L.geoJSON(SVI, {
   },
   onEachFeature: function(feature, layer) {
     var rpl = feature.properties.RPL_THEMES;
-    layer.bindPopup("<b>" + "Social Vulnerability: " + "</b>"  + (rpl*100).toFixed(2) + " percentile" + "<br>" + "Coordinates: " + JSON.stringify(feature.geometry.coordinates));
+    layer.bindPopup("<b>Social Vulnerability: </b>" + (rpl * 100).toFixed(2) + " percentile");
   }
 }); //checked
 
@@ -159,7 +157,7 @@ var ySVI_E = L.geoJSON(SVI, {
   },
   onEachFeature: function(feature, layer) {
     var rpl = feature.properties.RPL_THEMES;
-    layer.bindPopup("<b>" + "Social Vulnerability: " + "</b>"  + (rpl*100).toFixed(2) + " percentile" + "<br>" + "Coordinates: " + JSON.stringify(feature.geometry.coordinates));
+    layer.bindPopup("<b>Social Vulnerability: </b>" + (rpl * 100).toFixed(2) + " percentile");
   }
 }); //checked
 
@@ -314,13 +312,237 @@ const scale = L.control.scale({
   subdivisions: 3
 }).addTo(map);
 
+
+// Mapbox GL JS 3D Map Initialization
+const map3DContainer = document.createElement("div");
+map3DContainer.id = "map3D";
+map3DContainer.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: none; /* Initially hidden */
+    z-index: 999; /* Ensures it appears above other elements */
+    background-color: white;
+`;
+
+
+// Create a legend container for the 3D map
+const legend3DContainer = document.createElement("div");
+legend3DContainer.id = "legend3D";
+legend3DContainer.style.cssText = `
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    display: none; /* Initially hidden */
+`;
+
+// Add the legend content
+legend3DContainer.innerHTML = `
+  <b>Social Vulnerability Index</b><br>
+  <div style="display: flex; align-items: center; margin-bottom: 5px;">
+    <div style="width: 20px; height: 20px; background-color: #6bb955; margin-right: 10px;"></div>
+    Least Vulnerable
+  </div>
+  <div style="display: flex; align-items: center; margin-bottom: 5px;">
+    <div style="width: 20px; height: 20px; background-color: #d2b60d; margin-right: 10px;"></div>
+    Less Vulnerable
+  </div>
+  <div style="display: flex; align-items: center; margin-bottom: 5px;">
+    <div style="width: 20px; height: 20px; background-color: #f1861b; margin-right: 10px;"></div>
+    Average Vulnerability
+  </div>
+  <div style="display: flex; align-items: center; margin-bottom: 5px;">
+    <div style="width: 20px; height: 20px; background-color: #de4917; margin-right: 10px;"></div>
+    More Vulnerable
+  </div>
+  <div style="display: flex; align-items: center; margin-bottom: 5px;">
+    <div style="width: 20px; height: 20px; background-color: #8a1a15; margin-right: 10px;"></div>
+    Most Vulnerable
+  </div>
+`;
+
+// Append the legend to the body
+document.body.appendChild(legend3DContainer);
+
+
+document.body.appendChild(map3DContainer);
+
+const map3D = new mapboxgl.Map({
+  container: "map3D",
+  style: "mapbox://styles/mapbox/light-v10",
+  center: [-81.949533, 26.562853],
+  zoom: 13,
+  pitch: 45,
+  bearing: 0,
+  accessToken: accessToken,
+});
+
+map3D.on("load", function () {
+  console.log("Mapbox 3D map loaded successfully.");
+
+  // Add SVI GeoJSON as a source
+  map3D.addSource("svi-data", {
+    type: "geojson",
+    data: SVI,
+  });
+
+  // Add 3D extrusion layer
+  map3D.addLayer({
+    id: "svi-extrusion",
+    type: "fill-extrusion",
+    source: "svi-data",
+    paint: {
+      "fill-extrusion-color": [
+        "step",
+        ["get", "RPL_THEMES"],
+        "#6bb955", // Least vulnerable
+        0.2326,
+        "#d2b60d", // Less vulnerable
+        0.5236,
+        "#f1861b", // Average vulnerability
+        0.7742,
+        "#de4917", // More vulnerable
+        0.9303,
+        "#8a1a15", // Most vulnerable
+      ],
+      "fill-extrusion-height": [
+        "interpolate",
+        ["linear"],
+        ["get", "RPL_THEMES"],
+        0,
+        0,
+        1,
+        10000, // Max height for 100 percentile
+      ],
+      "fill-extrusion-opacity": 0.8,
+    },
+    layout: {
+      visibility: "visible",
+    },
+  });
+
+  // Add click event for popups
+  map3D.on("click", "svi-extrusion", function (e) {
+    if (!e.features || e.features.length === 0) {
+      console.warn("No feature clicked.");
+      return;
+    }
+    const rplThemes = e.features[0].properties.RPL_THEMES;
+    const sviPercentile = (rplThemes * 100).toFixed(2);
+
+    new mapboxgl.Popup({ offset: 25 })
+      .setLngLat(e.lngLat)
+      .setHTML(
+        `<div>
+           <b>Social Vulnerability:</b> ${sviPercentile} percentile
+         </div>`
+      )
+      .addTo(map3D);
+  });
+
+  // Add zoom and rotate controls to the 3D map
+  const navigationControls = new mapboxgl.NavigationControl({
+    showCompass: true, // Enables the rotate/compass button
+    showZoom: true,    // Enables the zoom in/out buttons
+    visualizePitch: true, // Shows the pitch while rotating
+  });
+
+  // Add the navigation controls to the top-right corner of the 3D map
+  map3D.addControl(navigationControls, 'bottom-right');
+
+  // Style for the controls container
+  const controlsContainerStyle = `
+    position: absolute;
+    top: 80px; /* Adjust to avoid overlapping with Toggle 3D button */
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  `;
+
+  // Apply custom styles to navigation controls
+  document.querySelector('.mapboxgl-ctrl-top-right').style.cssText = controlsContainerStyle;
+
+  console.log("Zoom and rotate controls added.");
+});
+
+
+  // Change the cursor to a pointer when over the SVI polygons
+  map3D.on("mouseenter", "svi-extrusion", function () {
+    map3D.getCanvas().style.cursor = "pointer";
+  });
+
+  // Reset the cursor to default when leaving the SVI polygons
+  map3D.on("mouseleave", "svi-extrusion", function () {
+    map3D.getCanvas().style.cursor = "";
+  });
+
+  console.log("SVI fill-extrusion layer added.");
+
+
+
+// Adjust the button style and position to be below the overlay maps icon on the right
+const toggle3DButton = document.createElement("button");
+toggle3DButton.innerHTML = "Toggle 3D";
+toggle3DButton.style.cssText = `
+    position: absolute;
+    top: 300px; /* Positioned below the overlay maps icon */
+    right: 10px;
+    z-index: 1000;
+    background: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+`;
+document.body.appendChild(toggle3DButton);
+
+let is3D = false;
+
+// Update the Toggle Button Logic to Handle 3D Legend Visibility
+toggle3DButton.addEventListener("click", function () {
+  is3D = !is3D;
+
+  if (is3D) {
+    // Switch to 3D map realm
+    document.getElementById("map").style.display = "none";
+    map3DContainer.style.display = "block";
+    legend3DContainer.style.display = "block"; // Show 3D legend
+    map3D.resize(); // Resize the Mapbox 3D map
+    toggle3DButton.innerHTML = "Toggle 2D"; // Change text to "Toggle 2D"
+    console.log("3D mode activated.");
+  } else {
+    // Switch back to 2D map realm
+    map3DContainer.style.display = "none";
+    document.getElementById("map").style.display = "block";
+    legend3DContainer.style.display = "none"; // Hide 3D legend
+    toggle3DButton.innerHTML = "Toggle 3D"; // Change text back to "Toggle 3D"
+    console.log("2D mode activated.");
+  }
+});
+
+
+
 var legend = L.control.Legend({
   position: "bottomleft",
   title: "Flood Classification",
   opacity: 0.8,
   legends: [
     {
-      label: "Surface Water",
+      label: "Water Areas",
       type: "polyline",
       layers: ySurfaceWater,
       color: "#002673",

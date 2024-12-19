@@ -12,7 +12,7 @@ html, body {
   #title {
     position: relative;
     height: 5%;
-    background-color: rgb(88, 153, 196);
+    background-color: rgb(233, 196, 106);
     font-size: 18px;
     font-family: Verdana;
     color:#fff;
@@ -66,6 +66,16 @@ html, body {
     height: 80vh;
     width: 100%;
   }
+
+  #map3D {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  
 
 .leaflet-control-scale-line {
     font-size: 14px;
