@@ -639,3 +639,18 @@ var legend2 = L.control.Legend({
     }
   ]
 }).addTo(map);
+// --- Deep-link: open directly in 3D when the URL ends with #3d (or ?view=3d) ---
+// Lets other sites embed this page in 3D mode via an iframe src.
+(function () {
+  var want3D = location.hash === '#3d'
+            || (new URLSearchParams(location.search)).get('view') === '3d';
+  if (!want3D) return;
+  // The 3D button is created later in this file; wait for it before clicking.
+  var tryClick = function () {
+    var btn = [].slice.call(document.querySelectorAll('button'))
+                 .filter(function (b) { return b.innerHTML === 'Toggle 3D'; })[0];
+    if (btn) btn.click(); else setTimeout(tryClick, 100);
+  };
+  if (document.readyState === 'complete') tryClick();
+  else window.addEventListener('load', tryClick);
+})();
