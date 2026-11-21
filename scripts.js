@@ -15,7 +15,7 @@ toggleButton.addEventListener('click', function() {
   }
 });
 
-const accessToken = window.CONFIG.MAPBOX_ACCESS_TOKEN;
+const accessToken = 'pk.eyJ1IjoiaGFvY2gwNDIzIiwiYSI6ImNtNHBibDJsazB4bHYya29yZnVhYmRicGoifQ.HzUzkEhGJf-t2lhHTonusg';
 
 var light = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
