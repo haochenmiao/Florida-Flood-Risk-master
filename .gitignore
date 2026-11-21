@@ -2,3 +2,7 @@
 config.js
 .DS_Store
 node_modules/
+myenv/
+venv/
+__pycache__/
+*.pyc
